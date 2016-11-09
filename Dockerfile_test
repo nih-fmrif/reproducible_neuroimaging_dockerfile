@@ -65,14 +65,13 @@ ENV LANG=C.UTF-8 \
 
 # Create conda environment, use following nipype/rst2pdf commits (current as of 10-17-2016):
 RUN conda config --add channels conda-forge && \
-    conda install -y numpy scipy lockfile matplotlib && \
+    conda install -y numpy scipy statsmodels matplotlib scikit-learn && \
     pip install -e git+https://github.com/nipy/nipype.git@master#egg=nipype && \
-    pip install -e git+https://github.com/oesteban/rst2pdf.git@futurize/stage2#egg=rst2pdf && \
     python -c "from matplotlib import font_manager"
 
 # Install NIH-FMRIF hosted version
 # Use the "master" branch. This branch contains a testing (possibly unstable) version of mriqc
-RUN pip install -e git+https://github.com/nih-fmrif/mriqc.git@master#egg=mriqc
+RUN pip install -e git+https://github.com/nih-fmrif/mriqc.git@nconf#egg=mriqc
 
 # Mount biowulf/fmrif/sfim directories for use within singularity containers
 RUN mkdir /gpfs /spin1 /gs2 /gs3 /gs4 /gs5 /data /fdb /lscratch /scratch /fmrif /sfim /users
